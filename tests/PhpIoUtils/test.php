@@ -2,7 +2,7 @@
 
 namespace PhpIoUtils;
 
-use io\Directory;
+use PhpIoUtils\Directory;
 
 class test
 {

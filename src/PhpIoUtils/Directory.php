@@ -1,6 +1,6 @@
 <?php
 
-namespace io;
+namespace PhpIoUtils;
 
 class Directory
 {
