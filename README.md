@@ -21,6 +21,7 @@ Usage Example for file creation:
 ## Requirements
 - Php 8.5+
 - Composer
+- Docker
 - [Task](https://taskfile.dev)
 
 

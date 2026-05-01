@@ -23,6 +23,49 @@ abstract class FileSystemInfo
         $this->givenPath = $givenPath;
     }
 
+    protected static function findFullPath(string $path): string
+    {
+        $normalizedPath = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $path);
+
+        if (
+            str_starts_with($normalizedPath, DIRECTORY_SEPARATOR) // Linux/macOS
+            || preg_match('/^[A-Za-z]:\\\/', $normalizedPath)   // Windows
+        ) {
+            $fullPath = $normalizedPath;
+        } else {
+            $fullPath = (getcwd() ?: '') . DIRECTORY_SEPARATOR . $normalizedPath;
+        }
+
+        $resolved = realpath($fullPath);
+
+
+        return $resolved ?: $fullPath;
+    }
+
+    protected static function figureOutTime(string $path, string $mode): ?DateTime
+    {
+
+        if ('c' === $mode) {
+            $timeInt = filectime($path);
+        } else {
+            $timeInt = filemtime($path);
+        }
+
+
+        $date = date('Y-m-d H:i:s', $timeInt ?: 0);
+
+        if (is_numeric($timeInt)) {
+            return date_create($date) ?: null;
+        }
+
+        return null;
+    }
+
+    public function getSafePath(): string
+    {
+        return $this->fullPath ?? $this->givenPath ?? '';
+    }
+
     public function __toString(): string
     {
         return $this->givenPath ?? '';

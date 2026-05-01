@@ -7,9 +7,35 @@ use PhpIoUtils\system\permission\Permissions;
 
 class File
 {
+    private readonly FileInfo $fileInfo;
+
+    public function __construct(string $path)
+    {
+        $this->fileInfo = new FileInfo($path);
+    }
+
+    public function IsActiveFile(): bool
+    {
+        return self::isFile($this->fileInfo->getSafePath());
+    }
+
+    public function DoesExist(): bool
+    {
+        return self::exists($this->fileInfo->getSafePath());
+    }
+
+    public function getFileInfo(): FileInfo
+    {
+        return $this->fileInfo;
+    }
+
+
+    // STATICS AND OTHERS
+
+
     public static function exists(string $path): bool
     {
-        if (!File::isFile($path)) {
+        if (!self::isFile($path)) {
             return false;
         }
 
@@ -18,7 +44,7 @@ class File
 
     public static function create(string $path, $recursive = false, $mode = Permissions::OCT_EVERYONE_FULL): bool
     {
-        if (!File::isFile($path)) {
+        if (!self::isFile($path)) {
             return false;
         }
 

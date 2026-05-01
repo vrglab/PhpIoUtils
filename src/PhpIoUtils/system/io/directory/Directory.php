@@ -2,6 +2,7 @@
 
 namespace PhpIoUtils\system\io\directory;
 
+use PhpIoUtils\system\io\file\File;
 use PhpIoUtils\system\permission\Permissions;
 
 class Directory
@@ -22,5 +23,42 @@ class Directory
         }
 
         return mkdir($path, $mode, $recursive);
+    }
+
+    public static function delete(string $path, bool $recursive = false): bool
+    {
+        if (!self::exists($path)) {
+            return true;
+        }
+
+        if ($recursive) {
+            $items = scandir($path);
+            if (false === $items) {
+                return false;
+            }
+
+            foreach ($items as $item) {
+                if ('.' === $item || '..' === $item) {
+                    continue;
+                }
+
+                $possibleFile = new File($item);
+
+                if (!$possibleFile->DoesExist()) {
+                    continue;
+                }
+
+                if (!$possibleFile->IsActiveFile()) {
+                    self::delete($possibleFile->getFileInfo()->getSafePath());
+                }
+            }
+        }
+
+        return rmdir($path);
+    }
+
+    public static function isDirectory(string $path): bool
+    {
+        return !File::isFile($path);
     }
 }

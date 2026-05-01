@@ -23,6 +23,8 @@ return new Config()
     '@auto' => true,
     '@auto:risky' => false,
 
+      'octal_notation' => false,
+
     // Removes UTF-8 BOM
     'encoding' => true,
 

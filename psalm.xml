@@ -21,5 +21,7 @@
         <UnusedClass errorLevel="suppress" />
         <UndefinedClass errorLevel="suppress" />
         <UnusedVariable errorLevel="suppress" />
+        <PossiblyUnusedParam errorLevel="suppress"/>
+        <UnusedProperty errorLevel="suppress"/>
     </issueHandlers>
 </psalm>

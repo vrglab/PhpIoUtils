@@ -1,11 +1,11 @@
 <?php
 
-namespace PhpIoUtils\system\io\directory;
+namespace PhpIoUtils\system\io\file;
 
 use Override;
 use PhpIoUtils\system\io\FileSystemInfo;
 
-class DirectoryInfo extends FileSystemInfo
+class FileInfo extends FileSystemInfo
 {
     public function __construct(string $path)
     {
@@ -19,7 +19,7 @@ class DirectoryInfo extends FileSystemInfo
     #[Override]
     public function getExtension(): string
     {
-        return '';
+        return pathinfo($this->getSafePath(), PATHINFO_EXTENSION);
     }
 
     #[Override]
@@ -37,6 +37,6 @@ class DirectoryInfo extends FileSystemInfo
     #[Override]
     public function Exist(): bool
     {
-        return Directory::exists($this->getSafePath());
+        return File::exists($this->getSafePath());
     }
 }
