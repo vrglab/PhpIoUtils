@@ -1,6 +1,8 @@
 <?php
 
-namespace PhpIoUtils;
+namespace PhpIoUtils\system\io\directory;
+
+use PhpIoUtils\system\permission\Permissions;
 
 class Directory
 {
@@ -15,7 +17,7 @@ class Directory
 
     public static function create(string $path, int $mode = Permissions::OCT_EVERYONE_FULL, bool $recursive = true): bool
     {
-        if (Directory::exists($path)) {
+        if (self::exists($path)) {
             return true;
         }
 

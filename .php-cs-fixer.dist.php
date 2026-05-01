@@ -5,28 +5,42 @@ declare(strict_types=1);
 use PhpCsFixer\Config;
 use PhpCsFixer\Finder;
 
-return (new Config())
-    ->setRiskyAllowed(false)
-    ->setRules([
-        '@auto' => true,
-        '@auto:risky' => false,
-        '@PhpCsFixer' => true
-    ])
-    // 💡 by default, Fixer looks for `*.php` files excluding `./vendor/` - here, you can groom this config
-    ->setFinder(
-        (new Finder())
-            // 💡 root folder to check
-            ->in(__DIR__ . '/src')
-            ->append([__DIR__ . '/tests'])
-            ->exclude([__DIR__ . '/vendors'])
-            // 💡 additional files, eg bin entry file
-            // ->append([__DIR__.'/bin-entry-file'])
-            // 💡 folders to exclude, if any
-            // ->exclude([/* ... */])
-            // 💡 path patterns to exclude, if any
-            // ->notPath([/* ... */])
-            // 💡 extra configs
-            // ->ignoreDotFiles(false) // true by default in v3, false in v4 or future mode
-            // ->ignoreVCS(true) // true by default
-    )
-;
+$finder = new Finder()
+  ->files()
+  ->in([
+    __DIR__ . '/src',
+    __DIR__ . '/tests',
+  ])
+  ->name('*.php')
+  ->exclude([
+    'vendor',
+  ]);
+
+return new Config()
+  ->setRiskyAllowed(false)
+  ->setRules([
+    '@PhpCsFixer' => true,
+    '@auto' => true,
+    '@auto:risky' => false,
+
+    // Removes UTF-8 BOM
+    'encoding' => true,
+
+    'concat_space' => ['spacing' => 'one'],
+
+    'global_namespace_import' => [
+      'import_classes' => true,
+      'import_constants' => true,
+      'import_functions' => false,
+    ],
+
+    'native_function_invocation' => false,
+
+    'ordered_imports' => [
+      'sort_algorithm' => 'alpha',
+    ],
+
+    'no_leading_import_slash' => true,
+    'single_import_per_statement' => true,
+  ])
+  ->setFinder($finder);

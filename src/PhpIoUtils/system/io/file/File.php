@@ -1,6 +1,9 @@
 <?php
 
-namespace PhpIoUtils;
+namespace PhpIoUtils\system\io\file;
+
+use PhpIoUtils\system\io\directory\Directory;
+use PhpIoUtils\system\permission\Permissions;
 
 class File
 {
@@ -21,12 +24,10 @@ class File
 
         $dirCheck = Directory::exists(dirname($path));
 
-        if (!$dirCheck && !$recursive) {
-            return false;
-        }
-
         if (!$dirCheck && $recursive) {
             Directory::create(dirname($path), $mode);
+        } else {
+            return false;
         }
 
         return touch($path);

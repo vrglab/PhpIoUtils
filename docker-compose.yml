@@ -1,0 +1,8 @@
+﻿services:
+  php:
+    build: .
+    container_name: php_io_utils
+    working_dir: /app
+    volumes:
+      - .:/app
+    tty: true

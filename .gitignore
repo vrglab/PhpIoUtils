@@ -1,3 +1,45 @@
 ﻿vendor/
-.idea/
 /.php-cs-fixer.cache
+
+# Composer dependencies
+/vendor/
+
+# Composer local/cache files
+composer.phar
+.composer/
+
+# Env files
+.env
+.env.local
+.env.*.local
+
+# PHPUnit / test output
+.phpunit.result.cache
+coverage/
+build/
+.cache/
+
+# Psalm
+.psalm/cache/
+psalm.xml.bak
+
+# PHP-CS-Fixer
+.php-cs-fixer.cache
+
+# IDEs
+.idea/
+.vscode/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Docker/local runtime junk
+docker-compose.override.yml
+*.log
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+/.phpunit.cache/

@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpIoUtils;
+namespace PhpIoUtils\system\permission;
 
 class Permissions
 {

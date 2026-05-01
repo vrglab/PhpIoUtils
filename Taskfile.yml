@@ -1,11 +1,40 @@
 # yaml-language-server: $schema=https://taskfile.dev/schema.json
 version: '3'
 
-vars:
-  VENDOR_BIN: ./vendor/bin/
 
 tasks:
+  composer--install:
+    cmds:
+      - docker compose run --rm php composer install
+
+  test:
+    desc: Run PHPUnit
+    cmds:
+      - php ./vendor/bin/phpunit
+
   psalm:
     desc: Run Psalm
     cmds:
-      - ./vendor/bin/psalm
+      - php ./vendor/bin/psalm
+
+  cs-fixer:
+    desc: Run Cs--Fixer
+    cmds:
+      - php ./vendor/bin/php-cs-fixer fix
+
+
+  clean:
+    cmds:
+      - task: psalm
+      - task: cs-fixer
+
+  tests:
+    desc: Run Unit tests and clean ups
+    cmds:
+      - task: clean
+      - task: test
+
+  test-debug:
+    desc: Run PHPUnit with Xdebug
+    cmds:
+      - php -d xdebug.mode=debug -d xdebug.start_with_request=yes ./vendor/bin/phpunit

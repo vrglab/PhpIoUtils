@@ -1,10 +1,40 @@
 {
-  "require-dev": {
-    "mockery/mockery": "1.6.12"
+  "name": "vrglab/php-io-utils",
+  "description": "Object-oriented PHP IO utilities for files and directories.",
+  "type": "library",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "PhpIoUtils\\": "src/PhpIoUtils"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "PhpIoUtils\\Tests\\": "tests/"
+    }
   },
   "require": {
-    "php": "8.5",
-    "vimeo/psalm": "6.16.1",
-    "php-cs-fixer/shim": "v3.95.1"
+    "php": "^8.5"
+  },
+  "require-dev": {
+    "mockery/mockery": "1.6.12",
+    "php-cs-fixer/shim": "v3.95.1",
+    "phpunit/phpunit": "^13.1",
+    "vimeo/psalm": "6.16.1"
+  },
+  "scripts": {
+    "test": "phpunit",
+    "psalm": "psalm",
+    "fix": "php-cs-fixer fix",
+    "check": [
+      "@test",
+      "@psalm"
+    ]
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
   }
 }
